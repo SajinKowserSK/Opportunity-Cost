@@ -9,6 +9,7 @@ from datetime import datetime
 transactionList = []
 places_avg_price = {}
 
+
 def clean(sentence):
 
     cleaned = re.compile('[^a-zA-Z-"&"-" "]')
@@ -32,7 +33,7 @@ def average (lst):
     avg = sum(lst) / len(lst)
     return round(avg, 2)
 
-df1 = pd.read_csv("transactions.csv", names=["Date", "Transaction", "Price", "NA1", "NA2"])
+df1 = pd.read_csv("transactions2.csv", names=["Date", "Transaction", "Price", "NA1", "NA2"])
 df1 = df1.drop('NA1', axis= 1)
 df1 = df1.drop('NA2', axis = 1)
 #df1.dropna(subset=["Transaction"])
