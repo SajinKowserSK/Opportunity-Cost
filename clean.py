@@ -1,2 +1,3 @@
-for x in range (1, 11):
-    print(x)
+sajin = "hi mandem"
+
+print(sajin.title())

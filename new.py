@@ -1,4 +1,4 @@
-def test():
-    print("hello")
+def test(variable):
+    print(variable)
 
-test()
+test("hi")
