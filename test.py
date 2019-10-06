@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request
 
 import pandas as pd
@@ -40,9 +39,15 @@ app = Flask(__name__)
 @app.route("/profile/<name>")
 def profile(name):
     return render_template("profile.html", name=name )
+labels = [
+    'JAN', 'FEB', 'MAR', 'APR',
+    'MAY', 'JUN', 'JUL', 'AUG',
+    'SEP', 'OCT', 'NOV', 'DEC'
+]
 
 @app.route("/", methods = ['GET', 'POST'])
 def homepage():
+
     if request.method == 'POST':
         filename = request.form['filename'] # now we can use filename as a python variable
         item = request.form['item']
@@ -97,9 +102,12 @@ def homepage():
 
 
         output_list = []
+        bill_list = []
+        bill_frequency = []
+
         for entries in range(0, len(places_avg_price)):
             transaction = places_avg_price[entries]  # the whole thing in format ('TIM HORTONS', (12, 3.2))
-            bill = transaction[0].title()  # the bill payee name, so Tim Hortons
+            bill = transaction[0].title()  #  the bill payee name, so Tim Hortons
 
             avg_price = transaction[1][
                 1]  # the first [1] gets tuple (12, 3.2) and then the second one gets avg price, 3.2
@@ -111,11 +119,14 @@ def homepage():
             canAfford = item_price // monthly_cost  # for the item price, this is how many months you can afford to pay this bill
             total_times = item_price // avg_price  # how many times you can pay for the bill
 
+            bill_list.append(bill)
+            bill_frequency.append(total_times)
+
             output_list.append("For the price of %s($%d), you could pay for "
                   "%s approximately %d times! That's an average of paying for %d months of %s!" % (
                       item, item_price, bill, total_times, canAfford, bill))
 
-        return render_template("homepage.html", p = output_list)
+        return render_template("homepage.html", p = output_list, labels = bill_list, data=bill_frequency)
     else:
         return render_template("homepage.html")
 
