@@ -41,20 +41,20 @@
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="static/animate.css">
 	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="static/icomoon.css">
 	<!-- Simple Line Icons-->
-	<link rel="stylesheet" href="css/simple-line-icons.css">
+	<link rel="stylesheet" href="static/simple-line-icons.css">
 	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="static/magnific-popup.css">
 	<!-- Owl Carousel -->
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="static/owl.carousel.min.css">
+	<link rel="stylesheet" href="static/owl.theme.default.min.css">
 	<!-- Salvattore -->
 	<link rel="stylesheet" href="css/salvattore.css">
 	<!-- Theme Style -->
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="static/style.css">
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
@@ -91,7 +91,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#fh5co-navbar" aria-expanded="false" aria-controls="navbar"><span>Menu</span> <i></i></a>
-					<a href="index.html" class="navbar-brand"><span>OPPORTUNITY COST</span></a>
+					<a href="../index.html" class="navbar-brand"><span>OPPORTUNITY COST</span></a>
 				</div>
 			</div>
 		</div>
@@ -106,7 +106,7 @@
 						<div class="row">
 
 							<div class="col-md-6 fh5co-text">
-								<h2 class="to-animate intro-animate-1">Understand the true cost of your spending.</h2>
+								<h2 class="to-animate intro-animate-1">Understand the true cost of your spending</h2>
 								<p class="to-animate intro-animate-2">Have you ever wondered <strong>"I wonder what else I could buy with that money?"</strong> Well we did too!
                                     That's why we built this tool which visualizes all the other bills you could pay with the money you are about to spend! Try it out for free by clicking the button below!</p>
 								<p class="to-animate intro-animate-3"><a href="#" class="btn btn-primary btn-md"><i class="icon-money"></i> Try it out! </a></p>
@@ -125,20 +125,20 @@
 				<div id="fh5co-subscribe">
 					<div class="container">
 						<div class="row animate-box">
-							<form action="#" method="post">
+							<form method="post">
 								<div class="col-md-3 col-sm-3">
 									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Transaction Sheet">
+										<input type="text" class="form-control" placeholder="Transaction Sheet" name="filename">
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-3">
 									<div class="form-group">
-										<input type="text" class="form-control" placeholder="What Are You Buying?">
+										<input type="text" class="form-control" placeholder="What Are You Buying?" name="item">
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-3">
 									<div class="form-group">
-										<input type="email" class="form-control" placeholder="Price?">
+										<input type="text" class="form-control" placeholder="Price?" name="item_price">
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-3">
@@ -150,6 +150,85 @@
 						</div>
 					</div>
 				</div>
+
+                <script>
+                    function getRandomColorHex() {
+                    const colorLetters = '0123456789ABCDEF';
+                    let color = '#';
+                    for (let i = 0; i < 6; i++) {
+                    color += colorLetters[Math.floor(Math.random() * 16)];
+                        }
+                    return color;
+                    }
+                </script>
+
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                    <title>My Chart.js Chart</title>
+                </head>
+                <canvas id="myChart" width="100" height="25"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+                <script>
+                var ctx = document.getElementById('myChart').getContext('2d');
+
+                var labels = [];
+                "{% for label in labels %}"
+                labels.push("{{label}}");
+                "{% endfor %}"
+
+                var data = [];
+                "{% for entry in data %}"
+                data.push("{{entry}}");
+                "{% endfor %}"
+
+                var randomColors = [];
+                "{% for entry in labels %}"
+                randomColors.push(getRandomColorHex());
+                "{% endfor %}"
+
+                var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'doughnut',
+                // The data for our dataset
+                data: {
+                    labels:labels,
+                    datasets: [{
+                        label: 'Potential Payments',
+                        fill: false,
+                        borderColor: "rgb(255,255,255)",
+                        backgroundColor:randomColors,
+                        data: data
+                    }]
+                },
+                // Configuration options go here
+                 options: {
+                    legend: {
+                        display: true
+                        }
+                    }
+                }
+
+
+                );
+                </script>
+                <h3 class="text-center name">{{name}} Transactions</h3>
+                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+                <!--{% if p %}-->
+                <!--{% for items in p %}-->
+                <!--<p>{{items}}</p>-->
+                <!--{% endfor %}-->
+                <!--{% endif %}-->
+
+                <!--<h3> {{ labels }}</h3>-->
+
+
 				<div id="fh5co-features" data-section="features">
 
 
@@ -502,7 +581,7 @@
 						</div>
 
 						<div class="col-md-3 col-sm-12 col-md-pull-9">
-							<div class="fh5co-footer-logo"><a href="index.html">Outline</a></div>
+							<div class="fh5co-footer-logo"><a href="../index.html">Outline</a></div>
 							<p class="fh5co-copyright"><small>&copy; 2015. All Rights Reserved. <br>	by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> Images: <a href="http://pexels.com/" target="_blank">Pexels</a></small></p>
 							<p class="fh5co-social-icons">
 								<a href="#"><i class="icon-twitter"></i></a>
